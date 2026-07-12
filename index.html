@@ -9,11 +9,27 @@
     <link href="https://googleapis.com/css2?family=Faster+One&family=Rampart+One&display=swap" rel="stylesheet">
 
     <script>
-    if (!sessionStorage.getItem("verified")) {
-        alert("請點擊確認以進入網站");
-        sessionStorage.setItem("verified", "yes");
+    // 1. 檢查 webdriver（Selenium / Puppeteer）
+    if (navigator.webdriver) {
+        document.body.innerHTML = "";
+    }
+    
+    // 2. 檢查 headless Chrome
+    if (navigator.userAgent.includes("HeadlessChrome")) {
+        document.body.innerHTML = "";
+    }
+    
+    // 3. 檢查自動化工具常見特徵
+    if (window.chrome && chrome.runtime && chrome.runtime.id === undefined) {
+        document.body.innerHTML = "";
+    }
+    
+    // 4. 檢查無法偽造的屬性（爬蟲通常不會有）
+    if (!('permissions' in navigator)) {
+        document.body.innerHTML = "";
     }
     </script>
+
 
     <!-- 2. 使用 <style> 標籤編寫 CSS -->
     <style>
