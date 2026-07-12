@@ -8,6 +8,13 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Faster+One&family=Rampart+One&display=swap" rel="stylesheet">
 
+    <script>
+    if (!sessionStorage.getItem("verified")) {
+        alert("請點擊確認以進入網站");
+        sessionStorage.setItem("verified", "yes");
+    }
+    </script>
+
     <!-- 2. 使用 <style> 標籤編寫 CSS -->
     <style>
         body {
