@@ -10,10 +10,10 @@
 
     <script>
     // ====== 1. 基本驗證（爬蟲不會點擊） ======
-    if (!sessionStorage.getItem("verified")) {
-        alert("請點擊確認以進入網站");
-        sessionStorage.setItem("verified", "yes");
-    }
+    //if (!sessionStorage.getItem("verified")) {
+    //    alert("請點擊確認以進入網站");
+    //    sessionStorage.setItem("verified", "yes");
+    //}
     
     // ====== 2. User-Agent 判斷（擋掉初級爬蟲） ======
     if (!navigator.userAgent || navigator.userAgent.includes("bot")) {
@@ -332,7 +332,7 @@
                 <option value="mail_Auto_reply.html">G-mail私人自動化作品</option>
                 <option value="https://easysocialwork-pixel.github.io/Mr.-Shih-Interior-Design_Step1/">室內裝潢網頁作品</option>
                 <option value="https://youtu.be/ODbuGDj1eF4">資料整理與數據分析影片</option>
-                <option value="https://youtu.be/">數據更新影片展示--建置中</option>
+                <option >數據更新影片展示--建置中</option>
             </select>
             <div class="select-arrow"></div>
         </div>
