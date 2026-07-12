@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郵件自動回覆</title>
+    <style>
+        /* ✨ 新增：讓全網頁在捲動時擁有流暢平滑的動態效果 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a2530; 
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff; 
+            margin-bottom: 25px;
+        }
+        p {
+            max-width: 800px;
+            margin: 20px auto;
+            line-height: 1.6;
+            color: #333333;
+            padding: 20px; 
+            background-color: #ffffff; 
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+            font-size: 1.25rem; 
+        }
+
+        /* 響應式影片外框 */
+        .video-box {
+            width: 100%;
+            /* 💡 建議修正：將 max-width 改回跟文字一樣的 800px，視覺上寬度才會整齊對齊 */
+            max-width: 800px;         
+            margin: 20px auto;        
+            display: block;
+        }
+        .video-box video {
+            width: 100%;              
+            height: auto;             
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+            display: block;
+        }
+        /* 按鈕專用區塊 */
+        .button-area {
+            text-align: center; 
+            margin-top: 30px; /* 新增：增加與影片播放器的間距 */
+        }
+        /* 按鈕通用樣式 */
+        .btn {
+            padding: 12px 28px;        
+            font-size: 16px;           
+            font-weight: bold;         
+            border: none;              
+            border-radius: 25px;       
+            cursor: pointer;           
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            transition: all 0.3s ease; 
+            margin: 10px;              
+        }
+        
+        .btn:active {
+            transform: translateY(1px); 
+            box-shadow: 0 2px 3px rgba(0,0,0,0.15); 
+        }
+
+        /* 「返回首頁」按鈕 */
+        .btn-submit {
+            background-color: #2e8b57; 
+            color: white;
+            text-decoration: none; /* 移除外層超連結可能產生的下底線 */
+        }
+        .btn-submit:hover {
+            background-color: #246b43; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px rgba(46, 139, 87, 0.3); 
+        }
+        
+        /* 「至頁面頂部」按鈕 */
+        .btn-reset {
+            background-color: #cd5c5c; 
+            color: white;
+        }
+        .btn-reset:hover {
+            background-color: #b24343; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px rgba(205, 92, 92, 0.3); 
+        }
+        form {
+      max-width: 500px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    </style>
+</head>
+<body>
+    <h1>郵件自動回覆</h1>
+    <p>這是一個示範個人化郵件自動回覆的簡易展示影片，主要呈現系統如何自動讀取郵件內容並生成適當的回覆。若進一步搭配 AI 技術，系統即可具備語意理解與智慧回覆能力，讓郵件處理更快速、更自動化。目前唯一的挑戰在於：如何提升 AI 對郵件內容的理解準確度，以及如何建立完善的風險控管流程，確保自動回覆在各種情境下都能保持安全、可靠且符合使用者需求。</p>
+    
+    <div class="video-box">
+        <video controls preload="auto">
+            <source src="./movie/G-mail-Auto.mp4" type="video/mp4">
+            您的瀏覽器不支援影片播放。
+        </video> 
+    </div>
+
+    
+
+    <form action="https://formspree.io/f/xykqnjok" method="POST">
+    <label style="color: #ffffff;">姓名：</label>
+    <input type="text" name="name" required="">
+
+    <label style="color: #ffffff;">Email：</label>
+    <input type="email" name="email" required="">
+
+    <label style="color: #ffffff;">訊息內容：</label>
+    <textarea name="message" required=""></textarea>
+
+    <div style="display: inline-flex; align-items: center; gap: 15px;">
+    <button class="btn btn-submit" type="submit" style="margin: 0;">送出訊息</button>
+    <h3 style="color: #ffffff; margin: 0; font-size: 16px; font-weight: normal;">目前機器人請假中...。</h3>
+    </div>
+  </form>
+    <!-- 按鈕區 -->
+    <div class="button-area">
+        <!-- 💡 修正：為了符合 HTML5 標準，返回首頁可以直接讓 <a> 標籤套用 .btn 樣式 -->
+        <a href="./index.html" class="btn btn-submit" style="display: inline-block;">返回首頁</a>
+        
+        <!-- 💡 修正：移除無效的 reset，加上 onclick JavaScript 語法實現網頁置頂 -->
+        <button class="btn btn-reset" onclick="window.scrollTo(0, 0);">至頁面頂部</button>
+    </div>
+</body>
+</html>
