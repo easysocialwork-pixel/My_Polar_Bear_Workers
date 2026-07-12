@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+                <html lang="zh-TW">
+                <head>
+                <meta charset="UTF-8">
+                <!-- ✨ 關鍵：確保手機版等比例縮放的 viewport 設定 -->
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>股票分析儀表板 - 鴻海精密 (2317)</title>
+                
+                <style>
+                /* 讓置頂按鈕點擊時有流暢平滑的捲動效果 */
+                html {
+                  scroll-behavior: smooth;
+                }
+                
+                body {
+                  font-family: "Microsoft JhengHei", sans-serif;
+                  background: #f5f5f5;
+                  margin: 0;
+                  padding: 0;
+                  -webkit-text-size-adjust: 100%; /* 防止 iOS 橫式螢幕時字體異常放大 */
+                }
+                
+                /* 重新設定 Header，強迫內部元件由上往下垂直 */
+                .top-header {
+                  display: flex;
+                  flex-direction: column;   
+                  padding: 30px 20px;       
+                  background: #333;
+                  color: #fff;
+                  width: 100%;
+                  box-sizing: border-box;
+                }
+                
+                /* 優化標題群組的內距與對齊 */
+                .title-group {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;      
+                  gap: 6px;                 
+                  align-self: center;       
+                }
+                
+                .title-group h1 {
+                  margin: 0;
+                  font-size: 28px;          
+                }
+                
+                .title-group h2 {
+                  margin: 0;
+                  font-size: 20px;
+                  font-weight: normal;
+                  opacity: 0.9;
+                }
+                
+                /* 更新日期加上上外距，與標題拉開層次 */
+                .update-date {
+                  margin: 12px 0 0 0;       
+                  font-size: 14px;
+                  opacity: 0.8;
+                  align-self: flex-end;     
+                  text-align: right;        
+                }
+                
+                /* 區塊樣式優化 */
+                section {
+                  margin: 20px auto;
+                  width: 90%;
+                  max-width: 900px;
+                  background: #fff;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 1px solid #ddd;
+                  box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+                  box-sizing: border-box; /* ✨ 新增：防止 padding 撐破 section 寬度 */
+                }
+                
+                h2, h3 {
+                  margin-bottom: 10px;
+                }
+                
+                /* 圖表區塊整體置中設定 */
+                .chart-block {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;      
+                  text-align: center;
+                  margin-bottom: 30px;
+                  width: 100%;
+                }
+                
+                .chart-block h3 {
+                  color: #444;
+                  margin-top: 10px;
+                  font-size: 18px; /* ✨ 稍微微調字體，在手機上看更精緻 */
+                }
+                
+                /* 表格優化 */
+                .info-table {
+                  width: 100%;
+                  border-collapse: collapse;
+                }
+                
+                .info-table th {
+                  background: #eee;
+                  padding: 10px 8px; /* ✨ 稍微加高內襯，手指在手機上更好點、更好看 */
+                  text-align: left;
+                  white-space: nowrap; /* ✨ 新增：防止表格欄位標題在手機上被切斷換行 */
+                }
+                
+                .info-table td {
+                  padding: 10px 8px;
+                  border-bottom: 1px solid #ddd;
+                }
+                
+                /* ✨ 圖片手機響應式核心美化 */
+                .chart-img {
+                  display: block;
+                  margin: 0 auto;
+                  width: 100%;              /* ✨ 修改：在小螢幕時自動 100% 寬度填滿 */
+                  max-width: 700px;         /* 電腦版維持最大 700px 寬，不放大失真 */
+                  height: auto;             /* ✨ 新增：保持完美的圖片原比例 */
+                  border-radius: 10px;
+                  cursor: pointer;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease; 
+                }
+                
+                /* 精緻的懸停放大與亮點發光特效 */
+                .chart-img:hover {
+                  transform: translateY(-4px) scale(1.015); 
+                  box-shadow: 0 12px 24px rgba(0,0,0,0.25); 
+                }
+                
+                /* Modal 放大視窗 */
+                .modal {
+                  display: none;
+                  position: fixed;
+                  z-index: 9999;
+                  padding-top: 60px; /* ✨ 調整：給手機版留下一點上方空間 */
+                  left: 0;
+                  top: 0;
+                  width: 100%;
+                  height: 100%;
+                  overflow: auto;
+                  background-color: rgba(0,0,0,0.9); /* ✨ 稍微加深背景，沉浸感更好 */
+                }
+                
+                .modal-content {
+                  margin: auto;
+                  display: block;
+                  width: 92%;               /* ✨ 讓手機版展開時左右留下一點完美邊框 */
+                  max-width: 1000px;
+                  border-radius: 10px;
+                  height: auto;
+                }
+                
+                footer {
+                  text-align: center;
+                  padding: 15px;
+                  background: #333;
+                  color: #fff;
+                  margin-top: 20px;
+                }
+                
+                /* 按鈕專用區塊 */
+                .button-area {
+                  text-align: center; 
+                  margin: 40px auto; 
+                }
+                
+                /* 按鈕通用樣式 */
+                .btn {
+                  padding: 12px 28px;        
+                  font-size: 16px;           
+                  font-weight: bold;         
+                  border: none;              
+                  border-radius: 25px;       
+                  cursor: pointer;           
+                  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+                  transition: all 0.3s ease; 
+                  margin: 10px;              
+                }
+                
+                .btn:active {
+                  transform: translateY(1px); 
+                  box-shadow: 0 2px 3px rgba(0,0,0,0.15); 
+                }
+                
+                /* 「返回首頁」按鈕 */
+                .btn-submit {
+                  background-color: #2e8b57; 
+                  color: white;
+                  text-decoration: none; 
+                }
+                .btn-submit:hover {
+                  background-color: #246b43; 
+                  transform: translateY(-2px); 
+                  box-shadow: 0 6px 12px rgba(46, 139, 87, 0.3); 
+                }
+                
+                /* 「至頁面頂部」按鈕 */
+                .btn-reset {
+                  background-color: #cd5c5c; 
+                  color: white;
+                }
+                .btn-reset:hover {
+                  background-color: #b24343; 
+                  transform: translateY(-2px); 
+                  box-shadow: 0 6px 12px rgba(205, 92, 92, 0.3); 
+                }
+                
+                /* ========================================== */
+                /* ✨ 核心新增：RWD 手機專用特定樣式斷點（螢幕小於 768px 時觸發） */
+                /* ========================================== */
+                @media (max-width: 768px) {
+                  body {
+                    padding: 0; /* 手機版貼邊，留給內部區塊寬度 */
+                  }
+                  
+                  .top-header {
+                    padding: 20px 15px; /* 縮小手機版頁首留白 */
+                  }
+                
+                  .title-group h1 {
+                    font-size: 22px; /* 縮小手機版主標題，避免長標題直接折兩行 */
+                  }
+                
+                  .title-group h2 {
+                    font-size: 17px; /* 縮小手機版副標題 */
+                  }
+                  
+                  .update-date {
+                    align-self: center; /* ✨ 關鍵：手機版畫面上，日期自動回到中間集合，排版更美觀 */
+                    text-align: center;
+                    margin-top: 8px;
+                  }
+                
+                  section {
+                    width: 95%; /* 擴大手機版的視覺佔比，善用螢幕空間 */
+                    padding: 15px; /* 稍微縮減方塊內襯 */
+                    margin: 15px auto;
+                  }
+                  
+                  h2 {
+                    font-size: 20px; /* 縮小區塊主題字 */
+                  }
+                  
+                  .chart-block h3 {
+                    font-size: 15px; /* 縮小圖表小標 */
+                  }
+                  
+                  /* 手機版按鈕改成滿版或稍微緊湊，防止兩個大按鈕在小螢幕並排時擠壓爆開 */
+                  .btn {
+                    padding: 10px 22px;
+                    font-size: 15px;
+                    margin: 5px;
+                  }
+                }
+                </style>
+                
+                </head>
+                <body>
+                
+                <header class="top-header">
+                  <div class="title-group">
+                    <h1>股票分析儀表板</h1>
+                    <h2>鴻海精密（2317）</h2>
+                  </div>
+                  <p class="update-date">更新日期：2026-07-09</p>
+                </header>
+                
+                <!-- ⭐ 圖片區塊放最上面 -->
+                <section class="charts">
+                  <h2>技術分析圖表</h2>
+                
+                  <div class="chart-block">
+                    <h3>收盤價 / 法人 / 融資 / 斜率</h3>
+                    <img src="Securities_Images/鴻海精密_1.jpg" class="chart-img" onclick="openModal(this.src)">
+                  </div>
+                
+                  <div class="chart-block">
+                    <h3>變異係數 / 本益比 / 殖利率</h3>
+                    <img src="Securities_Images/鴻海精密_2.jpg" class="chart-img" onclick="openModal(this.src)">
+                  </div>
+                
+                  <div class="chart-block">
+                    <h3>MACD / RSI / MA5 / MA20</h3>
+                    <img src="Securities_Images/鴻海精密_3.jpg" class="chart-img" onclick="openModal(this.src)">
+                  </div>
+                </section>
+                <section class="summary">
+                  <h3>基本資訊</h3>
+                  <table class="info-table">
+                    <tr><th>收盤價</th><td>237.50 元</td></tr>
+                    <tr><th>漲跌</th><td>0.00 元</td></tr>
+                    <tr><th>成交金額</th><td>96.30 億元</td></tr>
+                    <tr><th>三大法人合計</th><td>5585 張</td></tr>
+                    <tr><th>融資增減</th><td>-184 張</td></tr>
+                    <tr><th>融資餘額</th><td>57028 張</td></tr>
+                  </table>
+                </section>
+                
+                <section class="prediction">
+                  <h3>價格預測</h3>
+                  <p>次日價格預判：<strong>236.7 元</strong>（準確率 51.965%）</p>
+                  <p>60 日後價格預判：<strong>311.72 元</strong>（準確率 48.244%）</p>
+                  <p>期望值：<strong>-0.386</strong></p>
+                </section>
+
+                <section class="cv">
+                  <h3>變異係數分析</h3>
+                  <ul>
+                    <li>近  3 日變異係數：0.0012（近期變異係數臨近歷史最小值）</li>
+                    <li>近  5 日變異係數：0.0093（近期變異係數臨近歷史最小值）</li>
+                    <li>近 10 日變異係數：0.0217（近期變異係數臨近歷史最小值）</li>
+                    <li>近 15 日變異係數：0.0433（近期變異係數臨近歷史最小值）</li>
+                    <li>近 20 日變異係數：0.0476（近期變異係數臨近歷史最小值）</li>
+                    <li>近 30 日變異係數：0.0755（0.0755）</li>
+                    <li>近 60 日變異係數：60（0.0933）</li>
+                  </ul>
+                </section>
+                
+                <section class="tech">
+                  <h3>技術指標摘要</h3>
+                  <ul>
+                    <li>MACD  標準版   ： -2.626942</li>
+                    <li>MACD  快速版   ： 0.205021</li>
+                    <li>MACD  慢速版   ： -3.248442</li>
+                    <li>MA5（五日均線） ： 238.9</li>
+                    <li>MA20（廿日均線）： 253.25</li>
+                    <li>RSI 近五日數值  : 37.255, 29.67, 24.49, 20.43, 22.093</li>
+                  </ul>
+                </section>
+                
+                
+                <section class="tech">
+                  <h3>注意事項</h3>
+                  <ul>
+                    <li>所有資料來源皆為公開網路資訊</li>
+                    <li>分析結果僅供參考，不構成任何投資建議</li>
+                    <li>本系統使用的分析工具如下：</li>
+                    <li>移動平均（MA5、MA20）</li>
+                    <li>MACD</li>
+                    <li>RSI（相對強弱指標）</li>
+                    <li>變異係數（CV）</li>
+                    <li>標準差（σ）</li>
+                    <li>斜率（Slope）</li>
+                    <li>本益比（PER）</li>
+                    <li>殖利率（Dividend Yield）</li>
+                  </ul>
+                </section>
+                
+                
+                <!-- ⭐ 按鈕區移至頁尾上方 -->
+                <div class="button-area">
+                    <a href="./index.html" class="btn btn-submit" style="display: inline-block;">返回首頁</a>
+                    <button class="btn btn-reset" onclick="window.scrollTo(0, 0);">至頁面頂部</button>
+                </div>
+                
+                <footer>
+                  <p>© 2026 北極熊的股票分析系統</p>
+                </footer>
+                
+                <!-- ⭐ Modal 放大視窗 -->
+                <div id="imgModal" class="modal" onclick="closeModal()">
+                  <img id="modalImg" class="modal-content">
+                </div>
+                
+                <script>
+                function openModal(src) {
+                  document.getElementById("imgModal").style.display = "block";
+                  document.getElementById("modalImg").src = src;
+                }
+
+                function closeModal() {
+                  document.getElementById("imgModal").style.display = "none";
+                }
+                </script>
+                </body>
+                </html>
+                
