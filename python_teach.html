@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北極熊的 Python 初階教學</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Comic Sans MS", Arial, sans-serif;
+        background: #e8f6ff; /* 北極風淺藍 */
+    }
+
+    /* 頂部可愛導覽列 */
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #ffffffcc;
+        backdrop-filter: blur(8px);
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 100;
+    }
+
+    .navbar-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #2b4b6f;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-title img {
+        width: 40px;
+        margin-right: 10px;
+    }
+
+    .navbar a {
+        margin-left: 15px;
+        text-decoration: none;
+        color: #2b4b6f;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    /* 主標題 */
+    h1 {
+        text-align: center;
+        margin-top: 100px;
+        color: #2b4b6f;
+        font-size: 2.2rem;
+    }
+
+    /* 內容區塊 */
+    .section {
+        max-width: 900px;
+        background: #ffffff;
+        margin: 20px auto;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    /* 可愛北極熊插圖 */
+    .polar-img {
+        width: 180px;
+        display: block;
+        margin: 20px auto;
+    }
+
+    /* 影片 */
+    video {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* 圖片 */
+    img {
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        margin: 20px 0;
+    }
+
+    /* 返回頂部按鈕 */
+    .top-btn {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background: #6ec9ff;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+
+    .top-btn:hover {
+        background: #4bb8ff;
+        transform: translateY(-3px);
+    }
+</style>
+</head>
+
+<body>
+<!-- 導覽列 -->
+<div class="navbar">
+    <div class="navbar-title">
+        <img src="./permanent_Images/polarbear_logo.png">
+        北極熊的教學課堂
+    </div>
+    <div>
+        <a href="#video">教學影片</a>
+        <a href="#python">下載 Python</a>
+        <a href="#pycharm">下載 PyCharm</a>
+    </div>
+</div>
+
+<h1>🐻❄️ 北極熊老師的 Python 初階教學</h1>
+
+
+<!-- 教學影片 -->
+<div id="video" class="section">
+    <h2>🎬 教學影片：C++ vs Python</h2>
+    <p>北極熊老師要帶大家看看 C++ 和 Python 的差別喔！</p>
+    <video controls>
+        <source src="./movie/teach_video.mp4" type="video/mp4">
+        您的瀏覽器不支援影片播放。
+    </video>
+</div>
+
+<!-- Python 教學 -->
+<div id="python" class="section">
+    <h2>🐍 Step 1：下載 Python</h2>
+    <p>打開瀏覽器，搜尋「Python」。找到官方網站後點進去下載。</p>
+
+    <img src="./permanent_Images/python01.jpg">
+    <img src="./permanent_Images/python02.jpg">
+    <img src="./permanent_Images/python03.jpg">
+    <img src="./permanent_Images/python04.jpg">
+    <img src="./permanent_Images/python05.jpg">
+    <img src="./permanent_Images/python06.jpg">
+    <img src="./permanent_Images/python07.jpg">
+    <img src="./permanent_Images/python08.jpg">
+</div>
+
+<!-- PyCharm 教學 -->
+<div id="pycharm" class="section">
+    <h2>💻 Step 2：下載 PyCharm</h2>
+    <p>接著我們來下載寫 Python 的工具：PyCharm！</p>
+
+    <img src="./permanent_Images/pycharm_1.jpg">
+    <img src="./permanent_Images/pycharm_2.jpg">
+    <img src="./permanent_Images/pycharm_3.jpg">
+    <img src="./permanent_Images/pycharm_4.jpg">
+    <img src="./permanent_Images/pycharm_5.jpg">
+    <img src="./permanent_Images/pycharm_6.jpg">
+    <img src="./permanent_Images/pycharm_7.jpg">
+</div>
+
+<!-- 返回頂部 -->
+<button class="top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    ⬆️ 回到頂部
+</button>
+
+</body>
+</html>

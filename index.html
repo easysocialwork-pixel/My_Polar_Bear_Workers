@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>北極熊想睡覺</title>
+    <title>北極熊科技</title>
     <meta charset="utf-8">
     <!-- 1. 引入 Google Fonts -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Faster+One&family=Rampart+One&display=swap" rel="stylesheet">
+
 
     <script>
     // ====== 1. 基本驗證（爬蟲不會點擊） ======
@@ -14,34 +15,34 @@
     //    alert("請點擊確認以進入網站");
     //    sessionStorage.setItem("verified", "yes");
     //}
-    
+
     // ====== 2. User-Agent 判斷（擋掉初級爬蟲） ======
     if (!navigator.userAgent || navigator.userAgent.includes("bot")) {
         document.body.innerHTML = "";
     }
-    
+
     // ====== 3. Selenium / Puppeteer / Playwright 判斷 ======
-    
+
     // Selenium / Puppeteer 的 webdriver 特徵
     if (navigator.webdriver) {
         document.body.innerHTML = "";
     }
-    
+
     // Headless Chrome
     if (navigator.userAgent.includes("HeadlessChrome")) {
         document.body.innerHTML = "";
     }
-    
+
     // Chrome runtime 缺失（常見於自動化工具）
     if (window.chrome && chrome.runtime && chrome.runtime.id === undefined) {
         document.body.innerHTML = "";
     }
-    
+
     // Playwright 特徵：沒有 plugins
     if (navigator.plugins.length === 0) {
         document.body.innerHTML = "";
     }
-    
+
     // ====== 4. 延遲載入（爬蟲不會等） ======
     setTimeout(() => {
         const main = document.getElementById("main-content");
@@ -333,6 +334,7 @@
                 <option value="https://easysocialwork-pixel.github.io/Mr.-Shih-Interior-Design_Step1/">室內裝潢網頁作品</option>
                 <option value="https://youtu.be/ODbuGDj1eF4">資料整理與數據分析影片</option>
                 <option value="https://youtu.be/whL8htEgwMI">數據更新影片展示</option>
+                <option value="python_teach.html">猿創立教學與北極熊</option>
             </select>
             <div class="select-arrow"></div>
         </div>
